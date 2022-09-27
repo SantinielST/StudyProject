@@ -25,5 +25,18 @@ namespace StudyProject.ViewModels
         }
 
         #endregion
+
+        #region Status : string - Статус программы
+
+        /// <summary>Статус программы</summary>
+        private string _status = "Ready!";
+
+        public string Status 
+        {
+            get => _status;
+            set => Set(ref _status, value);
+        }
+
+        #endregion
     }
 }
