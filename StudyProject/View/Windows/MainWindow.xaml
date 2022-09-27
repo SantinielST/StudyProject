@@ -6,16 +6,50 @@
         xmlns:vm="clr-namespace:StudyProject.ViewModels"
         xmlns:l="clr-namespace:StudyProject"
         Title="{Binding Title}"
-        Height="450" Width="800">
+        Height="450" Width="800" ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
-        <TextBox Margin="36,30" 
-                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Left"
-                 Width="300"/>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About programm"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem MinWidth="150" MaxWidth="300">
+                <TextBlock Text="1234"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar Width="120" Height="14" Value="30"/>
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl>
+            <TabItem Header="Slide 1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="63*"/>
+                        <RowDefinition Height="325*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="157*"/>
+                        <ColumnDefinition Width="637*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Column="0" Grid.Row="0" 
+                               Margin="5,7"
+                               Fill="Blue" Stroke="Red" 
+                               StrokeThickness="3" 
+                               RadiusX="5" RadiusY="7"/>
+                    <Ellipse Grid.Column="1" Grid.Row="0"
+                             Margin="5, 7"
+                             Fill="Red" Stroke="Blue"
+                             StrokeThickness="3"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Slide 2"/>
+        </TabControl>
+    </DockPanel>
 </Window>
