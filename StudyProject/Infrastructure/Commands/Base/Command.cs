@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace StudyProject.ViewModels
+namespace StudyProject.Infrastructure.Commands.Base
 {
     internal abstract class Command : ICommand
     {
