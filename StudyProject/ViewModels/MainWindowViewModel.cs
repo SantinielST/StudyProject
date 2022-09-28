@@ -7,6 +7,8 @@ namespace StudyProject.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+
+
         #region Заголовок окна
 
         private string _title = "Анализ статистики CV19";
