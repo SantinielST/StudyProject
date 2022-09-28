@@ -4,20 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:StudyProject.ViewModels"
+        xmlns:cmd="clr-namespace:StudyProject.Infrastructure.Commands"
         xmlns:l="clr-namespace:StudyProject"
         Title="{Binding Title}"
         Height="450" Width="800" ResizeMode="CanResizeWithGrip">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding CloseApplicationCommand}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"/>
+                <MenuItem Header="Exit" Command="{StaticResource CloseApplicationCommand}">
+                    <!--<MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"/>-->
+                    <!--<MenuItem.Command>
+                        <cmd:CloseApplicationCommand/>
+                    </MenuItem.Command>-->
+                </MenuItem>
             </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="About programm"/>
-            </MenuItem>
+          <MenuItem Header="Help">
+              <MenuItem Header="About programm"/>
+          </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem MinWidth="150" MaxWidth="300">
