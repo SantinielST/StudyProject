@@ -1,13 +1,10 @@
-﻿using OxyPlot;
-using StudyProject.Infrastructure.Commands;
-using StudyProject.Models;
+﻿using StudyProject.Infrastructure.Commands;
 using StudyProject.ViewModels.Base;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using DataPoint = StudyProject.Models.DataPoint;
+
 
 namespace StudyProject.ViewModels
 {
@@ -15,12 +12,12 @@ namespace StudyProject.ViewModels
     {
         #region TestDataPoints : Ienumerable<TextDataPoint> - Description
 
-        private IEnumerable<DataPoint> _TestDataPoints;
+        private IEnumerable<Models.DataPoint> _TestDataPoints;
 
-        public IEnumerable<DataPoint> TestDataPoints 
-        { 
-            get => _TestDataPoints; 
-            set => Set(ref _TestDataPoints, value); 
+        public IEnumerable<Models.DataPoint> TestDataPoints
+        {
+            get => _TestDataPoints;
+            set => Set(ref _TestDataPoints, value);
         }
 
         #endregion
@@ -52,7 +49,7 @@ namespace StudyProject.ViewModels
         /// <summary>Статус программы</summary>
         private string _status = "Ready!";
 
-        public string Status 
+        public string Status
         {
             get => _status;
             set => Set(ref _status, value);
@@ -65,7 +62,7 @@ namespace StudyProject.ViewModels
         #region CloseApplicationCommand
 
         public ICommand CloseApplicationCommand { get; }
-        
+
         private bool CanCloseApplicationCommandExecute(object p) => true;
 
         private void OnCloseApplicationCommandExecuted(object p)
@@ -83,13 +80,13 @@ namespace StudyProject.ViewModels
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
-            var dataPoints = new List<DataPoint>((int)(360 / 0.1));
+            var dataPoints = new List<Models.DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
                 const double toRad = Math.PI / 180;
                 var y = Math.Sin(x * toRad);
 
-                dataPoints.Add(new DataPoint { XValue = x, YValue = y});
+                dataPoints.Add(new Models.DataPoint { XValue = x, YValue = y });
             }
 
             TestDataPoints = dataPoints;
