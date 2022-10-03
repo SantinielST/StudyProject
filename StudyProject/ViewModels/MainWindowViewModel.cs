@@ -10,6 +10,18 @@ namespace StudyProject.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region SelectedPageIndex : int - Номер выбранной вкладки
+
+        private int _SelectedPageIndex;
+
+        public int SelectedPageIndex 
+        { 
+            get => _SelectedPageIndex; 
+            set => Set(ref _SelectedPageIndex, value); 
+        }
+
+        #endregion
+
         #region TestDataPoints : Ienumerable<TextDataPoint> - Description
 
         private IEnumerable<Models.DataPoint> _TestDataPoints;
@@ -72,6 +84,20 @@ namespace StudyProject.ViewModels
 
         #endregion
 
+        #region ChangeTabIndexCommand
+
+        public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommandExecute(object p) => _SelectedPageIndex >= 0;
+
+        private void OnChangeTabIndexCommandExecuted(object p)
+        {
+            if (p is null) return;
+            SelectedPageIndex += Convert.ToInt32(p);
+        }
+
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -79,6 +105,7 @@ namespace StudyProject.ViewModels
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             var dataPoints = new List<Models.DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
