@@ -1,13 +1,29 @@
-﻿using StudyProject.Infrastructure.Commands;
+﻿using OxyPlot;
+using StudyProject.Infrastructure.Commands;
+using StudyProject.Models;
 using StudyProject.ViewModels.Base;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using DataPoint = StudyProject.Models.DataPoint;
 
 namespace StudyProject.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region TestDataPoints : Ienumerable<TextDataPoint> - Description
 
+        private IEnumerable<DataPoint> _TestDataPoints;
+
+        public IEnumerable<DataPoint> TestDataPoints 
+        { 
+            get => _TestDataPoints; 
+            set => Set(ref _TestDataPoints, value); 
+        }
+
+        #endregion
 
         #region Заголовок окна
 
@@ -66,6 +82,17 @@ namespace StudyProject.ViewModels
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+            var dataPoints = new List<DataPoint>((int)(360 / 0.1));
+            for (var x = 0d; x <= 360; x += 0.1)
+            {
+                const double toRad = Math.PI / 180;
+                var y = Math.Sin(x * toRad);
+
+                dataPoints.Add(new DataPoint { XValue = x, YValue = y});
+            }
+
+            TestDataPoints = dataPoints;
 
             #endregion
         }
