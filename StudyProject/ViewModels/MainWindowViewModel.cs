@@ -17,6 +17,14 @@ namespace StudyProject.ViewModels
 
         public ObservableCollection<Group> Groups { get; }
 
+        private Group _SelectedGroup;
+
+        public Group SelectedGroup 
+        { 
+            get => _SelectedGroup; 
+            set => Set(ref _SelectedGroup, value); 
+        }
+
         #region SelectedPageIndex : int - Номер выбранной вкладки
 
         private int _SelectedPageIndex;
