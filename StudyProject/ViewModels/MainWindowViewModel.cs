@@ -1,9 +1,11 @@
 ﻿using StudyProject.Infrastructure.Commands;
+using StudyProject.Models.Decanat;
 using StudyProject.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 
@@ -11,14 +13,18 @@ namespace StudyProject.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        /*--------------------------------------------------------------------------------------------------------------------------*/
+
+        public ObservableCollection<Group> Groups { get; }
+
         #region SelectedPageIndex : int - Номер выбранной вкладки
 
         private int _SelectedPageIndex;
 
-        public int SelectedPageIndex 
-        { 
-            get => _SelectedPageIndex; 
-            set => Set(ref _SelectedPageIndex, value); 
+        public int SelectedPageIndex
+        {
+            get => _SelectedPageIndex;
+            set => Set(ref _SelectedPageIndex, value);
         }
 
         #endregion
@@ -70,6 +76,8 @@ namespace StudyProject.ViewModels
 
         #endregion
 
+        /*--------------------------------------------------------------------------------------------------------------------------*/
+
         #region Команды
 
         #region CloseApplicationCommand
@@ -101,6 +109,8 @@ namespace StudyProject.ViewModels
 
         #endregion
 
+        /*--------------------------------------------------------------------------------------------------------------------------*/
+
         public MainWindowViewModel()
         {
             #region Команды
@@ -108,6 +118,8 @@ namespace StudyProject.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
+            #endregion
+            
             var dataPoints = new List<Models.DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
@@ -119,7 +131,26 @@ namespace StudyProject.ViewModels
 
             TestDataPoints = dataPoints;
 
-            #endregion
+            var studentIndex = 1;
+
+            var students = Enumerable.Range(1, 10).Select(s => new Student
+            {
+                Name = $"Имя {studentIndex}",
+                SurName = $"Фамилия {studentIndex}",
+                Patronymic = $"Patronymic {studentIndex++}",
+                Birthday = DateTime.Now,
+                Rating = 0
+            }); ; ;
+
+            var groups = Enumerable.Range(1, 20).Select(i => new Group
+            {
+                Name = $"Группа {i}",
+                Students = new ObservableCollection<Student>(students)
+            });
+
+            Groups = new ObservableCollection<Group>(groups);
+
+            
         }
     }
 }
