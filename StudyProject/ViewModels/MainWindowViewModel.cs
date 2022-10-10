@@ -148,7 +148,7 @@ namespace StudyProject.ViewModels
                 Patronymic = $"Patronymic {studentIndex++}",
                 Birthday = DateTime.Now,
                 Rating = 0
-            }); ; ;
+            });
 
             var groups = Enumerable.Range(1, 20).Select(i => new Group
             {
