@@ -107,7 +107,16 @@
                     <GroupBox Grid.Column="0" Header="Группы">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <Button Content="Добавить" Style="{StaticResource PrimaryBtn}" Command="{Binding CreateGroupCommand}"/>
+                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding CreateGroupCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:ImageAwesome Height="12" Icon="Solid_Check" Foreground="LightGreen" Margin="0,0,7,0">
+                                            <fa:ImageAwesome.Effect>
+                                                <DropShadowEffect ShadowDepth="1"/>
+                                            </fa:ImageAwesome.Effect>
+                                        </fa:ImageAwesome>
+                                        <TextBlock Text="Добавить"/>
+                                    </StackPanel>
+                                </Button>
                                 <Button Content="Удалить" Style="{StaticResource DangerBtn}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}">
